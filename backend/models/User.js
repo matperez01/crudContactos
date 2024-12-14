@@ -22,9 +22,9 @@ const userSchema = new mongoose.Schema({
   contactos: [contactoSchema],
 });
 
-// Middleware para hashear contraseña antes de guardar
+
 userSchema.pre('save', async function (next) {
-  // Solo hashear la contraseña si ha sido modificada
+  
   if (this.isModified('contrasenia')) {
     try {
       this.contrasenia = await bcrypt.hash(this.contrasenia, 10);
@@ -37,7 +37,6 @@ userSchema.pre('save', async function (next) {
   }
 });
 
-// Método para verificar contraseña
 userSchema.methods.verificarContrasenia = async function(contrasenia) {
   return await bcrypt.compare(contrasenia, this.contrasenia);
 };

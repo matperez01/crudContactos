@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useUsuario } from '../UsuarioContext';
 
 const EditarUsuario = () => {
-  const [usuario, setUsuarioLocal] = useState(''); // Estado local para nombre
-  const [correo, setCorreo] = useState(''); // Estado local para correo
+  const [usuario, setUsuarioLocal] = useState(''); 
+  const [correo, setCorreo] = useState(''); 
   const navigate = useNavigate();
-  const { setUsuario } = useUsuario(); // Método del contexto para actualizar el estado global
-  const userId = localStorage.getItem('id'); // Obtiene ID del usuario del localStorage
+  const { setUsuario } = useUsuario(); 
+  const userId = localStorage.getItem('id'); 
 
   useEffect(() => {
     if (!userId) {
@@ -38,11 +38,11 @@ const EditarUsuario = () => {
       });
 
       if (response.ok) {
-        // Actualizar localStorage
+        
         localStorage.setItem('usuario', usuario);
         localStorage.setItem('correo', correo);
 
-        // Actualizar el contexto global
+       
         setUsuario({ id: userId, nombre: usuario, correo });
 
         alert('Datos actualizados correctamente.');

@@ -124,7 +124,7 @@ const Home = () => {
   const misContactosPublicos = misContactos.filter(contacto => contacto.esPublico);
   const misContactosPrivados = misContactos.filter(contacto => !contacto.esPublico);
 
-  // Excluir mis contactos públicos de la lista de contactos públicos generales
+  
   const contactosPublicosFiltrados = contactosPublicos.filter(
     contactoPublico => !misContactosPublicos.some(
       miContacto => miContacto._id === contactoPublico._id

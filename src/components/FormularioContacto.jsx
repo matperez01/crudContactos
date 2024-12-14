@@ -14,7 +14,7 @@ const FormularioContacto = ({ usuarioId }) => {
     empresa: '',
     domicilio: '',
     esPublico: false,
-    contrasenia: '', // Nuevo campo de contraseña
+    contrasenia: '', 
     propietario: usuarioId,
   });
 

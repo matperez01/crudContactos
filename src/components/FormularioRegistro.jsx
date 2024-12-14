@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 const FormularioRegistro = ({ alRegistrar }) => {
   const navigate = useNavigate();
   const [datosFormulario, setDatosFormulario] = useState({
-    usuario: '', // Cambiado de "nombre" a "usuario"
-    correo: '',  // Cambiado de "email" a "correo"
-    contrasenia: '', // Cambiado de "contraseña" a "contrasenia"
+    usuario: '', 
+    correo: '',  
+    contrasenia: '', 
   });
 
   const manejarCambio = (e) => {
@@ -28,10 +28,10 @@ const FormularioRegistro = ({ alRegistrar }) => {
       const datos = await respuesta.json();
   
       if (!respuesta.ok) {
-        // More detailed error logging
+       
         console.error('Error en el registro:', datos);
         
-        // Display a more specific error message
+       
         const errorMessage = datos.details || datos.message || 'Error al registrar';
         alert(errorMessage);
         
@@ -39,7 +39,7 @@ const FormularioRegistro = ({ alRegistrar }) => {
       } else {
         console.log('Usuario registrado con éxito:', datos);
         alert('Usuario registrado exitosamente');
-        // Optionally, redirect or update state
+        
         navigate('/');
       }
     } catch (error) {
@@ -57,7 +57,7 @@ const FormularioRegistro = ({ alRegistrar }) => {
         <label className="form-label">Usuario</label>
         <input
           type="text"
-          name="usuario" // Asegúrate de que este sea "usuario"
+          name="usuario" 
           className="form-control"
           value={datosFormulario.usuario}
           onChange={manejarCambio}
@@ -68,7 +68,7 @@ const FormularioRegistro = ({ alRegistrar }) => {
         <label className="form-label">Correo</label>
         <input
           type="email"
-          name="correo" // Asegúrate de que este sea "correo"
+          name="correo" 
           className="form-control"
           value={datosFormulario.correo}
           onChange={manejarCambio}
@@ -79,7 +79,7 @@ const FormularioRegistro = ({ alRegistrar }) => {
         <label className="form-label">Contraseña</label>
         <input
           type="password"
-          name="contrasenia" // Asegúrate de que este sea "contrasenia"
+          name="contrasenia"
           className="form-control"
           value={datosFormulario.contrasenia}
           onChange={manejarCambio}

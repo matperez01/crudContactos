@@ -18,7 +18,7 @@ const FormularioInicioSesion = () => {
     e.preventDefault();
     
     if (datosFormulario.correo === 'admin' && datosFormulario.contrasenia === 'admin') {
-      // Aquí irías al componente especial para el administrador
+    
       setUsuario({ id: 'admin', nombre: 'Administrador', correo: 'admin' }); // Establece 'Administrador' como nombre
       navigate('/admin-panel');
     } else {

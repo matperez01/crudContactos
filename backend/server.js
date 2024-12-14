@@ -17,25 +17,25 @@ mongoose.connect('mongodb+srv://perezenzo222:Piloloco12.@peyectocontactos.h1tig.
   .then(() => console.log('Conectado a MongoDB'))
   .catch((error) => console.error('Error de conexión:', error));
 
-// Registro de usuario
+
 app.post('/register', async (req, res) => {
   console.log('Datos recibidos en /register:', req.body);
 
   const { usuario, correo, contrasenia } = req.body;
 
-  // Validate input fields
+
   if (!usuario || !correo || !contrasenia) {
     return res.status(400).json({ message: 'Todos los campos son obligatorios' });
   }
 
   try {
-    // Validate email format
+
     const emailRegex = /.+@.+\..+/;
     if (!emailRegex.test(correo)) {
       return res.status(400).json({ message: 'Formato de correo inválido' });
     }
 
-    // Validate password length
+
     if (contrasenia.length < 6) {
       return res.status(400).json({ message: 'La contraseña debe tener al menos 6 caracteres' });
     }
@@ -55,7 +55,7 @@ app.post('/register', async (req, res) => {
     const nuevoUsuario = new User({
       usuario,
       correo,
-      contrasenia, // Aquí está bien, no se menciona "apellido"
+      contrasenia, 
     });
   
     await nuevoUsuario.save();
@@ -71,7 +71,7 @@ app.post('/register', async (req, res) => {
   } catch (error) {
     console.error('Error detallado al registrar usuario:', error);
 
-    // Handle specific Mongoose validation errors
+   
     if (error.name === 'ValidationError') {
       const messages = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({
@@ -80,7 +80,7 @@ app.post('/register', async (req, res) => {
       });
     }
 
-    // Generic error handling
+ 
     res.status(500).json({
       message: 'Error al registrar usuario',
       error: error.message,
@@ -89,7 +89,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Editar usuario
+
 app.put('/usuarios/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -117,7 +117,7 @@ app.put('/usuarios/:id', async (req, res) => {
 });
 
 
-// Crear contacto
+
 app.post('/contactos', async (req, res) => {
   try {
     const { propietario, nombre, apellido, email, telefono, empresa, domicilio, esPublico, contrasenia } = req.body;
@@ -152,7 +152,7 @@ app.post('/contactos', async (req, res) => {
   }
 });
 
-// Inicio de sesión
+
 app.post('/login', async (req, res) => {
   try {
     const { correo, contrasenia } = req.body;
@@ -199,7 +199,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Obtener contactos
+
 app.get('/contactos-usuario/:userId', async (req, res) => {
   try {
     const usuario = await User.findById(req.params.userId).select('contactos');
@@ -216,7 +216,7 @@ app.get('/contactos-usuario/:userId', async (req, res) => {
 
 
 
-// Editar contacto
+
 app.put('/contactos/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -242,13 +242,13 @@ app.put('/contactos/:id', async (req, res) => {
   }
 });
 
-// Eliminar contacto
+
 app.delete('/contactos/:id', async (req, res) => {
   try {
     const { id } = req.params;
     console.log(`Intentando eliminar contacto con id: ${id}`);
 
-    // Buscar al usuario que contiene el contacto
+
     const usuario = await User.findOne({ 'contactos._id': id });
     if (!usuario) {
       console.log('Usuario no encontrado para el contacto con id:', id);
@@ -257,10 +257,10 @@ app.delete('/contactos/:id', async (req, res) => {
 
     console.log('Usuario encontrado:', usuario);
 
-    // Filtrar el contacto del array de contactos
+
     usuario.contactos = usuario.contactos.filter(contacto => contacto._id.toString() !== id);
 
-    // Guardar los cambios
+
     await usuario.save();
 
     console.log('Contacto eliminado exitosamente');
@@ -271,16 +271,16 @@ app.delete('/contactos/:id', async (req, res) => {
   }
 });
 
-// Obtener todos los contactos para el admin
+
 app.get('/todos-los-contactos', async (req, res) => {
   try {
     const usuarios = await User.find().select('contactos');
-    console.log('Usuarios encontrados:', usuarios); // Añade este log
+    console.log('Usuarios encontrados:', usuarios); 
     const todosLosContactos = usuarios.reduce((acc, usuario) => {
-      console.log('Contactos del usuario:', usuario.contactos); // Añade este log
+      console.log('Contactos del usuario:', usuario.contactos); 
       return acc.concat(usuario.contactos);
     }, []);
-    console.log('Todos los contactos concatenados:', todosLosContactos); // Añade este log
+    console.log('Todos los contactos concatenados:', todosLosContactos); 
     res.json(todosLosContactos);
   } catch (error) {
     console.error('Error al obtener todos los contactos:', error);
@@ -321,7 +321,7 @@ app.get('/contactos-publicos', async (req, res) => {
   try {
     const usuarios = await User.find();
     const contactosPublicos = usuarios.reduce((acc, usuario) => {
-      // Filtrar solo contactos públicos
+    
       const publicosDeOtrosUsuarios = usuario.contactos.filter(contacto => contacto.esPublico);
       return acc.concat(publicosDeOtrosUsuarios);
     }, []);

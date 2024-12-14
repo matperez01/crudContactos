@@ -7,7 +7,7 @@ const BarraNavegacion = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Este efecto se ejecutará cuando 'usuario' cambie
+    
   }, [usuario]);
 
   const alCerrarSesion = () => {
