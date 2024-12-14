@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const FormularioRegistro = ({ alRegistrar }) => {
+  const navigate = useNavigate();
   const [datosFormulario, setDatosFormulario] = useState({
     usuario: '', // Cambiado de "nombre" a "usuario"
     correo: '',  // Cambiado de "email" a "correo"
@@ -38,6 +40,7 @@ const FormularioRegistro = ({ alRegistrar }) => {
         console.log('Usuario registrado con éxito:', datos);
         alert('Usuario registrado exitosamente');
         // Optionally, redirect or update state
+        navigate('/');
       }
     } catch (error) {
       console.error('Error completo:', error);

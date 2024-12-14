@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 const Home = () => {
   const [usuario, setUsuario] = useState(null);
   const [usuarioId, setUsuarioId] = useState(null);
   const [misContactos, setMisContactos] = useState([]);
   const [contactosPublicos, setContactosPublicos] = useState([]);
+  
   const navigate = useNavigate();
+
+  
+  
 
   useEffect(() => {
     const usuarioLogueado = localStorage.getItem('usuario');
@@ -103,6 +108,8 @@ const Home = () => {
                   >
                     Eliminar
                   </button>
+
+                
                 </div>
               )}
             </div>
@@ -123,6 +130,14 @@ const Home = () => {
       miContacto => miContacto._id === contactoPublico._id
     )
   );
+
+  const actualizarContactoEnEstado = (contactoActualizado) => {
+    setMisContactos((prevContactos) =>
+      prevContactos.map((contacto) =>
+        contacto._id === contactoActualizado._id ? contactoActualizado : contacto
+      )
+    );
+  };
 
   return (
     <div className="container mt-5">
